@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Theme</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        h1 {
+            color: white;
+            font-size: 3em;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .heart {
+            font-size: 100px;
+            color: #ff3366;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: heartbeat 1s infinite;
+            cursor: pointer;
+        }
+        .message {
+            font-size: 24px;
+            color: white;
+            display: none;
+            margin-top: 20px;
+        }
+        .tulip {
+            font-size: 80px;
+            color: green;
+            display: none;
+            animation: growTulip 3s forwards;
+        }
+        .confetti {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            pointer-events: none;
+        }
+        @keyframes heartbeat {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+        @keyframes growTulip {
+            0% { font-size: 80px; opacity: 0; }
+            100% { font-size: 200px; opacity: 1; }
+        }
+        .petal {
+            position: absolute;
+            top: -50px;
+            animation: fall 5s linear infinite;
+            font-size: 25px;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Love is Everywhere</h1>
+    <div class="heart" onclick="popHeart()">❤️</div>
+    <div class="message" id="message">I love you tulip 🌷</div>
+    <div class="tulip" id="tulip">🌷</div>
+
+    <script>
+        // Function to create falling rose petals
+        function createPetals() {
+            const petalCount = 10;  // Number of petals falling
+            const petalContainer = document.body;
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement("div");
+                petal.classList.add("petal");
+                petal.textContent = "🌹";
+                petal.style.left = `${Math.random() * 100}vw`;
+                petal.style.animationDuration = `${Math.random() * 5 + 5}s`; // Petals fall at random speed
+                petalContainer.appendChild(petal);
+            }
+        }
+
+        // Function to handle the heart pop effect
+        function popHeart() {
+            const heart = document.querySelector(".heart");
+            const message = document.getElementById("message");
+            const tulip = document.getElementById("tulip");
+            const confetti = document.createElement("div");
+            confetti.classList.add("confetti");
+            
+            // Generate confetti particles
+            for (let i = 0; i < 30; i++) {
+                const confettiParticle = document.createElement("div");
+                confettiParticle.style.position = 'absolute';
+                confettiParticle.style.left = `${Math.random() * 100}vw`;
+                confettiParticle.style.top = `${Math.random() * 100}vh`;
+                confettiParticle.style.width = '10px';
+                confettiParticle.style.height = '10px';
+                confettiParticle.style.backgroundColor = 'yellow';
+                confettiParticle.style.animation = `fall 2s ease-in-out infinite`;
+                confetti.appendChild(confettiParticle);
+            }
+            document.body.appendChild(confetti);
+
+            message.style.display = "block";
+            tulip.style.display = "inline-block";
+
+            // Hide heart temporarily
+            heart.style.display = "none";
+
+            // Reset heart animation
+            setTimeout(() => {
+               
+            }, 2000);
+        }
+
+        // Run the petal falling animation continuously
+        setInterval(createPetals, 500); // Create petals at intervals
+
+        // Initialize
+        createPetals();
+    </script>
+</body>
+</html>
